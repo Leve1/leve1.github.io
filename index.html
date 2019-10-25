@@ -1,0 +1,25 @@
+<body></body>
+<script>
+    document.body.style = "background-color: black; color: white; text-align: center";
+	  var canvas = document.createElement("canvas");
+	  canvas.style.width = 512;
+	  canvas.style.heigth = 512;
+	  canvas.width = 512; canvas.height = 512;
+	  canvas.style.display = "table";
+	  canvas.style.margin = "0 auto";
+	  canvas.id = "content";
+	  var context = canvas.getContext('2d');
+	  var idata = context.getImageData(0,0,512,512);
+	  var data = idata.data;
+	  var bitmap = new Uint32Array([0x0]);
+	  data.fill(0xff);
+	  for (let y = 0; y < 512; y++) {
+		  let b32 = bitmap[y/16 | 0];
+		  for (let x = 0; x < 512; x++) {
+			  data[(x + y*512) * 4 + 3] = (b32 >> (x/16|0)) & 1 ? 0xff : 0;
+		  }
+	  }
+	  context.putImageData(idata,0,0);
+	  document.body.appendChild(canvas);
+	  document.body.appendChild(document.createElement('pre')).innerHTML = "\n<h1>Nothing to see hear :)</h1>\nHello\n";
+</script>    
