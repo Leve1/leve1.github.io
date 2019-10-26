@@ -1,14 +1,25 @@
-<html>
-	<head>
-		<style>
-			secretimage {
-				display: block
-				margin-left: auto;
-				margin-right: auto;
-			}
-		</style>
-		<secretimage src="images/Secret.png" alt="SecretImage" class="center">
-	</head>
-	<body>
-	</body>
-</html>
+<body></body>
+<script>
+    document.body.style = "background-color: black; color: white; text-align: center";
+	  var canvas = document.createElement("canvas");
+	  canvas.style.width = 512;
+	  canvas.style.heigth = 512;
+	  canvas.width = 512; canvas.height = 512;
+	  canvas.style.display = "table";
+	  canvas.style.margin = "0 auto";
+	  canvas.id = "content";
+	  var context = canvas.getContext('2d');
+	  var idata = context.getImageData(0,0,512,512);
+	  var data = idata.data;
+	  var bitmap = new Uint32Array([0x0, 0xa00, 0x400, 0x5540, 0x7fc0, 0x3f80, 0x3f80, 0x1f00, 0x1f00, 0x1f00, 0x3f80, 0xffe0, 0x3f80, 0x3f80, 0x3f83, 0x103f9f, 0x18103ffb, 0xe3fffd5, 0x1beabfab, 0x480d7fd5, 0xf80abfab, 0x480d7fd5, 0x1beabfab, 0xe3fffd5, 0x18107ffb, 0x107fdf, 0x7fc3, 0xffe0, 0xffe0, 0xffe0, 0x1fff0, 0x1fff0]);
+	  data.fill(0xff);
+	  for (let y = 0; y < 512; y++) {
+		  let b32 = bitmap[y/16 | 0];
+		  for (let x = 0; x < 512; x++) {
+			  data[(x + y*512) * 4 + 3] = (b32 >> (x/16|0)) & 1 ? 0xff : 0;
+		  }
+	  }
+	  context.putImageData(idata,0,0);
+	  document.body.appendChild(canvas);
+	  document.body.appendChild(document.createElement('pre')).innerHTML = "\n<h1>Nothing to see hear :)</h1>\nHello\n";
+</script> 
